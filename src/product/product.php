@@ -1,21 +1,13 @@
 <?php
-include("../nav.php");
-// $servername = "localhost:3307";    
-// $username = "root";
-// $password = "CG-vak123";
-// $dbname = "mydb";
+include("../common/nav.php");
 
-// $conn = new mysqli($servername, $username, $password, $dbname);
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-include("../connect.php");
+include("../common/connect.php");
 
 
 $productQuery = "SELECT * FROM Product";
 $productResult = $conn->query($productQuery);
 
-$userQuery = "SELECT * FROM User";
+$userQuery = "SELECT * FROM UserLog";
 $userResult = $conn->query($userQuery);
 
 ?>
@@ -24,6 +16,13 @@ $userResult = $conn->query($userQuery);
 <html>
 <head>
     <title>Product and User Details</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <style>
         body {
@@ -67,20 +66,39 @@ $userResult = $conn->query($userQuery);
 
 </head>
 <body>
-    <h2 id ='prod'>Product Details</h2>
-    <h2>Add New Product</h2>
-    <form method="post" action=" ">
-   
-    <label>Product Name: <input type="text" name="ProductName"></label><br>
-    <label>Product type: <input type="text" name="ProductType"></label><br>
-    <label>Product description: <input type="text" name="Description"></label><br>
-    <label>Product quantity: <input type="text" name="Quantity"></label><br>
-    <label>Product price: <input type="text" name="Price"></label><br>
-    <label>Product image: <input type="text" name="Image"></label><br>
-  
-  
-    <input type="submit" value="Add Product">
-</form>
+
+
+<div class="container">
+    <h2 id="prod">Product Details</h2>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addProductModal">
+        Add New Product
+    </button>
+
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="">
+                        <label>Product Name: <input type="text" name="ProductName"></label><br>
+                        <label>Product type: <input type="text" name="ProductType"></label><br>
+                        <label>Product description: <input type="text" name="Description"></label><br>
+                        <label>Product quantity: <input type="text" name="Quantity"></label><br>
+                        <label>Product price: <input type="text" name="Price"></label><br>
+                        <label>Product image: <input type="text" name="Image"></label><br>
+                        <input type="submit" value="Add Product">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <table>
         <tr>
             <th>Product Code</th>
@@ -104,20 +122,24 @@ $userResult = $conn->query($userQuery);
         <?php endwhile; ?>
     </table>
 
-    <h2 id='use'>User Details</h2>
+    <h2 id='use'>User Log Details</h2>
     <table>
         <tr>
-            <th>UID</th>
+            <th>ID</th>
             <th>Username</th>
-            <th>Password</th>
-            <th>User Type</th>
+            <th>email</th>
+            <th>login_time</th>
+            <th>usertype</th>
+            <th>logout_time</th>
         </tr>
         <?php while ($userRow = $userResult->fetch_assoc()): ?>
             <tr>
-                <td><?= $userRow['UID'] ?></td>
-                <td><?= $userRow['Username'] ?></td>
-                <td><?= $userRow['Password'] ?></td>
-                <td><?= $userRow['UserType'] ?></td>
+                <td><?= $userRow['id'] ?></td>
+                <td><?= $userRow['username'] ?></td>
+                <td><?= $userRow['email'] ?></td>
+                <td><?= $userRow['login_time'] ?></td>
+                <td><?= $userRow['usertype'] ?></td>
+                <td><?= $userRow['logout_time'] ?></td>
             </tr>
         <?php endwhile; ?>
     </table>

@@ -53,6 +53,11 @@
                                         <p class='card-text'>Product Type: {$product['ProductType']}</p>
                                         
                                         <p class='card-text'>Price: {$product['Price']}</p>
+
+                                        <button class='btn btn-primary show-more-btn' data-toggle='collapse' data-target='#description{$product['ProductCode']}' aria-expanded='false'>Show More</button>
+                                        <div id='description{$product['ProductCode']}' class='collapse'>
+                                            <p class='card-text'>{$product['Description']}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>";
@@ -75,6 +80,22 @@
         $productManager->displayProducts();
         ?>
     </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.show-more-btn').click(function() {
+        $(this).toggleClass('active');
+        if ($(this).hasClass('active')) {
+            $(this).text('Show Less');
+        } else {
+            $(this).text('Show More');
+        }
+    });
+});
+</script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
