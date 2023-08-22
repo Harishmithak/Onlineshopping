@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     if ($userType === 'user' || $userType === 'admin') {
- 
+        $_SESSION['usertype'] = $usertype;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
         $_SESSION['login_time'] = date('Y-m-d H:i:s');
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $insert_stmt->close();
 
         if ($usertype === 'user') {
-            header('Location: ../product/userproduct.php');
+            header('Location: ../product/new.php');
             exit();
         } elseif ($usertype === 'admin') {
             header('Location: ../product/product.php');

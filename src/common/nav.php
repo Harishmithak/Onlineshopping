@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,17 +61,16 @@
               <a class="nav-link" href="../product/home.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../product/userproduct.php">products</a>
+              <a class="nav-link" href="../product/new.php">products</a>
             </li>
             <li class="nav-item ">
               <a class="nav-link" href="../login/loggedin.html">login</a>
             </li>
-           
-
           </ul>
         </div>
         <?php
-    session_start();
+
+session_start();
     if (isset($_SESSION['username'])) {
         echo '<div class="welcome-message m-0">Welcome, ' . $_SESSION['username'] . '</div>';
     }
@@ -80,10 +81,16 @@
         echo '<script>alert("We\'re glad to see you again: ' . $_COOKIE['stored_username'] . '")</script>';
 
     } 
+
+    if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
+        echo '<div class="nav-item admin">
+                <a class="nav-link " href="../product/product.php">Admin</a>
+              </div>';
+    }
     ?>
-        <li class="nav-item">
+        <div class="nav-item">
             <a class="logout-link m-0" href="../login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </li>
+</div>
       </nav>
     
      </body>
