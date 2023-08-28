@@ -1,17 +1,19 @@
-<?php        include("../common/nav.php");?>
-
+<?php    
+include("../common/nav.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Product List</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>        
+    .card-body:hover {
+      background-color: lightgray; 
+  }</style>
 </head>
 <body>
     <div class="container">
         <h1>Product List</h1>
         <?php
-
         class Product {
             private $conn;
 
@@ -21,7 +23,6 @@
                     die("Connection failed: " . $this->conn->connect_error);
                 }
             }
-
             public function getAllProducts() {
                 $sql = "SELECT * FROM Product";
                 $result = $this->conn->query($sql);
@@ -38,10 +39,8 @@
 
             public function displayProducts() {
                 $products = $this->getAllProducts();
-
                 if (count($products) > 0) {
                     echo "<div class='row'>";
-
                     foreach ($products as $product) {
                         echo "<div class='col-md-4 mb-4'>
                                 <div class='card'>
@@ -49,15 +48,9 @@
                                     <div class='card-body'>
                                         <h5 class='card-title'>{$product['ProductName']}</h5>
                                         <p class='card-text'>{$product['Description']}</p>
-                                    
                                         <p class='card-text'>Product Type: {$product['ProductType']}</p>
-                                        
                                         <p class='card-text'>Price: {$product['Price']}</p>
-
-                                        <button class='btn btn-primary show-more-btn' data-toggle='collapse' data-target='#description{$product['ProductCode']}' aria-expanded='false'>Show More</button>
-                                        <div id='description{$product['ProductCode']}' class='collapse'>
-                                            <p class='card-text'>{$product['Description']}</p>
-                                        </div>
+                                  
                                     </div>
                                 </div>
                             </div>";
@@ -68,38 +61,11 @@
                     echo "No products found.";
                 }
             }
-
         }
-
-        $host = "localhost:3307";
-        $username = "root";
-        $password = "CG-vak123";
-        $database = "mydb";
-
-        $productManager = new Product($host, $username, $password, $database);
+        $productManager = new Product('localhost:3307','root', "CG-vak123", "mydb");
         $productManager->displayProducts();
         ?>
     </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.show-more-btn').click(function() {
-        $(this).toggleClass('active');
-        if ($(this).hasClass('active')) {
-            $(this).text('Show Less');
-        } else {
-            $(this).text('Show More');
-        }
-    });
-});
-</script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 

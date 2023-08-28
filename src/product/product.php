@@ -1,4 +1,5 @@
 <?php
+// session_start();
 include("../common/nav.php");
 
 include("../common/connect.php");
@@ -11,7 +12,6 @@ $userQuery = "SELECT * FROM UserLog";
 $userResult = $conn->query($userQuery);
 
 ?>
-
 
 <html>
 <head>
@@ -60,6 +60,10 @@ $userResult = $conn->query($userQuery);
      #use{
         text-align:center;
      }
+     .current-user-row {
+        background-color: lightblue; 
+        color: black; 
+    }
 
     </style>
 
@@ -108,6 +112,8 @@ $userResult = $conn->query($userQuery);
             <th>Quantity</th>
             <th>Price</th>
             <th>Image</th>
+            <th>Edit</th>
+        <th>Delete</th>
         </tr>
         <?php while ($productRow = $productResult->fetch_assoc()): ?>
             <tr>
@@ -118,6 +124,9 @@ $userResult = $conn->query($userQuery);
                 <td><?= $productRow['Quantity'] ?></td>
                 <td><?= $productRow['Price'] ?></td>
                 <td><img src="<?= $productRow['Image'] ?>" width="50" height="50" alt="Product Image"></td>
+    
+        <td><button class="btn btn-primary edit-product-btn" data-toggle="modal" data-target="#editProductModal" data-product-id="<?= $productRow['ProductCode'] ?>">Edit</button></td>
+            <td><button class="btn btn-danger delete-product-btn" data-product-id="<?= $productRow['ProductCode'] ?>">Delete</button></td>
             </tr>
         <?php endwhile; ?>
     </table>
@@ -133,7 +142,8 @@ $userResult = $conn->query($userQuery);
             <th>logout_time</th>
         </tr>
         <?php while ($userRow = $userResult->fetch_assoc()): ?>
-            <tr>
+            <tr <?php if (empty($userRow['logout_time'])) echo 'class="current-user-row"'; ?>>
+            <!-- <tr> -->
                 <td><?= $userRow['id'] ?></td>
                 <td><?= $userRow['username'] ?></td>
                 <td><?= $userRow['email'] ?></td>

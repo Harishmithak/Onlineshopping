@@ -10,13 +10,10 @@ $userQuery = "SELECT * FROM User";
 $userResult = $conn->query($userQuery);
 
 ?>
-
-
 <html>
 <head>
     <title>Product and User Details</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,6 +36,7 @@ $userResult = $conn->query($userQuery);
             max-height: 200px;
             object-fit: cover;
         }
+
     </style>
 </head>
 <body>
