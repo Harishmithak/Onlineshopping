@@ -37,8 +37,5 @@ include("../common/nav.php");
   <p>Discover a wide range of products for all your needs.</p>
   <a class="btn btn-primary" href="new.php">Shop Now</a>
 </div>
-
-
-
 </body>
 </html>

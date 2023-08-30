@@ -3,8 +3,6 @@
 include("../common/nav.php");
 
 include("../common/connect.php");
-
-
 $productQuery = "SELECT * FROM Product";
 $productResult = $conn->query($productQuery);
 
@@ -66,8 +64,62 @@ $userResult = $conn->query($userQuery);
     }
 
     </style>
+<script>
+function editProduct(productId) {
+    var xmlhttp = new XMLHttpRequest();
+    
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           var response = JSON.parse(this.responseText);
+            
+          
+            document.getElementById('editProductId').value = response.ProductCode;
+            document.getElementById('editProductName').value = response.ProductName;
+            document.getElementById('editProductType').value = response.ProductType;
+            document.getElementById('editDescription').value = response.Description;
+            document.getElementById('editQuantity').value = response.Quantity;
+            document.getElementById('editPrice').value = response.Price;
+            document.getElementById('editImage').value = response.Image;
+            
+           
+            $('#editProductModal').modal('show');
+        }
+    };
+    
+    xmlhttp.open("GET", "edit_product.php?productId=" + productId, true);
+    xmlhttp.send();
+}
 
+// function deleteProduct(productId) {
+//     if (confirm('Are you sure you want to delete this product?')) {
+//         var xmlhttp = new XMLHttpRequest();
+        
+//         xmlhttp.onreadystatechange = function() {
+//             if (this.readyState == 4 && this.status == 200) {
+            
+//                 document.getElementById('productRow_' + productId).remove();
+//             }
+//         };
+//         xmlhttp.open("POST", "delete_product.php", true);
+//         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//         xmlhttp.send("productId=" + productId);
+//     }
+// }
+function deleteProduct(productId){
+    if (confirm('Are you sure you want to delete this product?')) {
+        var xmlhttp = new XMLHttpRequest();
+    
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+             console.log(this.responseText);
+          }
+        };
+        xmlhttp.open('GET','delete_product.php?productId='+productId,true);
+        xmlhttp.send();
+    }
+    }
 
+</script>
 </head>
 <body>
 
@@ -102,7 +154,6 @@ $userResult = $conn->query($userQuery);
         </div>
     </div>
 </div>
-
     <table>
         <tr>
             <th>Product Code</th>
@@ -125,8 +176,10 @@ $userResult = $conn->query($userQuery);
                 <td><?= $productRow['Price'] ?></td>
                 <td><img src="<?= $productRow['Image'] ?>" width="50" height="50" alt="Product Image"></td>
     
-        <td><button class="btn btn-primary edit-product-btn" data-toggle="modal" data-target="#editProductModal" data-product-id="<?= $productRow['ProductCode'] ?>">Edit</button></td>
-            <td><button class="btn btn-danger delete-product-btn" data-product-id="<?= $productRow['ProductCode'] ?>">Delete</button></td>
+                <td><button class="btn btn-primary edit-product-btn" onclick="editProduct(<?= $productRow['ProductCode'] ?>)">Edit</button></td>
+
+        <td><button class="btn btn-danger delete-product-btn" onclick="deleteProduct(<?= $productRow['ProductCode'] ?>)">Delete</button></td>
+
             </tr>
         <?php endwhile; ?>
     </table>
@@ -153,6 +206,33 @@ $userResult = $conn->query($userQuery);
             </tr>
         <?php endwhile; ?>
     </table>
+
+    <!-- Within the <body> section of your HTML -->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="update_product.php">
+                    <input type="hidden" name="productId" id="editProductId"> <!-- Store the product ID for updating -->
+                    <label>Product Name: <input type="text" name="ProductName" id="editProductName" ></label><br>
+                    <label>Product type: <input type="text" name="ProductType" id="editProductType"></label><br>
+                    <label>Product description: <input type="text" name="Description" id="editDescription"></label><br>
+                    <label>Product quantity: <input type="text" name="Quantity" id="editQuantity"></label><br>
+                    <label>Product price: <input type="text" name="Price" id="editPrice"></label><br>
+                    <label>Product image: <input type="text" name="Image" id="editImage"></label><br>
+                    <input type="submit" value="Update Product">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 

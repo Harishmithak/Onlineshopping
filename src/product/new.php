@@ -8,7 +8,15 @@ include("../common/nav.php"); ?>
     <style>        
     .card-body:hover {
       background-color: lightgray; 
-  }</style>
+  }
+  
+  .quantity-input{
+
+    width:50px;
+  }
+  
+  
+  </style>
 </head>
 <body>
     <div class="container">
@@ -50,12 +58,12 @@ include("../common/nav.php"); ?>
                                         <p class='card-text'>{$product['Description']}</p>
                                         <p class='card-text'>Product Type: {$product['ProductType']}</p>
                                         <p class='card-text'>Price: {$product['Price']}</p>
-                                  
+                                        <input type='number' class='quantity-input' value='1' min='1'>
+                                    <button class='btn btn-primary buy-now-btn'>Add to cart</button>
                                     </div>
                                 </div>
                             </div>";
                     }
-
                     echo "</div>";
                 } else {
                     echo "No products found.";
