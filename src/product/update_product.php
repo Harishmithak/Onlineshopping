@@ -1,5 +1,5 @@
 <?php
-// Include database connection and any necessary configuration
+
 include("../common/connect.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productId = $_POST["productId"];

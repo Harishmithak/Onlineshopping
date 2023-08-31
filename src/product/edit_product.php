@@ -13,5 +13,7 @@ if (isset($_GET["productId"])) {
         exit();
     }
 }
+
+
 ?>
 

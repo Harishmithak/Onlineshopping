@@ -219,7 +219,7 @@ function deleteProduct(productId){
             </div>
             <div class="modal-body">
                 <form method="post" action="update_product.php">
-                    <input type="hidden" name="productId" id="editProductId"> <!-- Store the product ID for updating -->
+                    <input type="hidden" name="productId" id="editProductId"> 
                     <label>Product Name: <input type="text" name="ProductName" id="editProductName" ></label><br>
                     <label>Product type: <input type="text" name="ProductType" id="editProductType"></label><br>
                     <label>Product description: <input type="text" name="Description" id="editDescription"></label><br>
