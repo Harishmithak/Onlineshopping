@@ -4,9 +4,8 @@ session_start();
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-
     $logout_time = date('Y-m-d H:i:s');
-    
+
     $sql_update = "UPDATE UserLog SET logout_time = ? WHERE username = ?";
     $stmt_update = $conn->prepare($sql_update);
 
@@ -22,5 +21,6 @@ if (isset($_SESSION['username'])) {
 }
 
 session_destroy();
+header('Location: ../login/loggedin.html');
 ?>
 

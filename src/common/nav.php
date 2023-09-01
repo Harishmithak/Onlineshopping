@@ -67,6 +67,9 @@
             <li class="nav-item ">
               <a class="nav-link" href="../login/loggedin.html">login</a>
             </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="../product/cart.php">cart</a>
+            </li>
           </ul>
         </div>
         <?php

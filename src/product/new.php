@@ -41,10 +41,8 @@ include("../common/nav.php"); ?>
                         $products[] = $row;
                     }
                 }
-
                 return $products;
             }
-
             public function displayProducts() {
                 $products = $this->getAllProducts();
                 if (count($products) > 0) {
@@ -52,14 +50,25 @@ include("../common/nav.php"); ?>
                     foreach ($products as $product) {
                         echo "<div class='col-md-4 mb-4'>
                                 <div class='card'>
-                                    <img src='{$product['Image']}' class='card-img-top' alt='{$product['ProductName']}'>
+                                  
                                     <div class='card-body'>
-                                        <h5 class='card-title'>{$product['ProductName']}</h5>
-                                        <p class='card-text'>{$product['Description']}</p>
-                                        <p class='card-text'>Product Type: {$product['ProductType']}</p>
-                                        <p class='card-text'>Price: {$product['Price']}</p>
-                                        <input type='number' class='quantity-input' value='1' min='1'>
-                                    <button class='btn btn-primary buy-now-btn'>Add to cart</button>
+
+                                    <form method='post' action='cart_handler.php'>
+                                    <img src='{$product['Image']}' class='card-img-top' alt='{$product['ProductName']}'>
+                                    <h5 class='card-title'>{$product['ProductName']}</h5>
+                                    <p class='card-text'>{$product['Description']}</p>
+                                    <p class='card-text'>Product Type: {$product['ProductType']}</p>
+                                    <p class='card-text'>Price: {$product['Price']}</p>
+                                    <input type='number' class='quantity-input' name='quantity' value='1' min='1'><br><br>
+                                    <input type='hidden' name='ProductName' value='{$product['ProductName']}'>
+                                    <input type='hidden' name='ProductType' value='{$product['ProductType']}'>
+                                    <input type='hidden' name='Description' value='{$product['Description']}'>
+                                    <input type='hidden' name='Price' value='{$product['Price']}'>
+                                    <input type='hidden' name='Image' value='{$product['Image']}'>
+                                    <button type='submit' class='btn btn-primary'>Add to cart</button>
+                                </form>
+                                
+                                
                                     </div>
                                 </div>
                             </div>";

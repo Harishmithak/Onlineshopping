@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['usertype'] = $usertype;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
+        
+       
         $_SESSION['login_time'] = date('Y-m-d H:i:s');
         if (!isset($_SESSION['login_count'])) {
             $_SESSION['login_count'] = 1;
